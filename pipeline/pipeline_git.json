@@ -48,7 +48,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "LinkedService_Git",
+						"referenceName": "sourceGit",
 						"type": "DatasetReference"
 					}
 				],
