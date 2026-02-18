@@ -1,0 +1,22 @@
+{
+	"name": "LinkedService_Git",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LinkedService_Git",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation",
+				"relativeUrl": "/Azure-Data-factory-Learning/tree/main/sources"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
