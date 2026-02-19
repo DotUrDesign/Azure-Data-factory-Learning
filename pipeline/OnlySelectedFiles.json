@@ -3,6 +3,41 @@
 	"properties": {
 		"activities": [
 			{
+				"name": "CopyDataFlow",
+				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "factdata_source",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
 				"name": "Get Metadata",
 				"type": "GetMetadata",
 				"dependsOn": [],
@@ -16,7 +51,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "metadata",
+						"referenceName": "metadata1",
 						"type": "DatasetReference"
 					},
 					"fieldList": [
@@ -29,75 +64,6 @@
 					"formatSettings": {
 						"type": "DelimitedTextReadSettings"
 					}
-				}
-			},
-			{
-				"name": "ForEachCSV",
-				"type": "ForEach",
-				"dependsOn": [
-					{
-						"activity": "Get Metadata",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"items": {
-						"value": "@activity('Get Metadata').output.childItems",
-						"type": "Expression"
-					},
-					"isSequential": true,
-					"activities": [
-						{
-							"name": "IfFileMatches",
-							"type": "IfCondition",
-							"dependsOn": [],
-							"userProperties": [],
-							"typeProperties": {
-								"expression": {
-									"value": "@startswith(item().name, 'Fact')",
-									"type": "Expression"
-								},
-								"ifTrueActivities": [
-									{
-										"name": "CopyDataFlow",
-										"type": "Copy",
-										"dependsOn": [],
-										"policy": {
-											"timeout": "0.12:00:00",
-											"retry": 0,
-											"retryIntervalInSeconds": 30,
-											"secureOutput": false,
-											"secureInput": false
-										},
-										"userProperties": [],
-										"typeProperties": {
-											"source": {
-												"type": "DelimitedTextSource",
-												"storeSettings": {
-													"type": "AzureBlobFSReadSettings",
-													"recursive": true,
-													"enablePartitionDiscovery": false
-												},
-												"formatSettings": {
-													"type": "DelimitedTextReadSettings"
-												}
-											},
-											"enableStaging": false
-										},
-										"inputs": [
-											{
-												"referenceName": "factdata_source",
-												"type": "DatasetReference"
-											}
-										]
-									}
-								]
-							}
-						}
-					]
 				}
 			}
 		],
