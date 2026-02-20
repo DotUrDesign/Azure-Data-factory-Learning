@@ -32,18 +32,38 @@
 				}
 			},
 			{
-				"name": "Set variable1",
+				"name": "FilesVariable",
 				"type": "SetVariable",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "GetMetadata",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "varFiles",
+					"value": {
+						"value": "@activity('GetMetadata').output.childItems",
+						"type": "Expression"
+					}
+				}
 			}
 		],
+		"variables": {
+			"var_files": {
+				"type": "String"
+			},
+			"varFiles": {
+				"type": "Array"
+			}
+		},
 		"annotations": []
 	}
 }
