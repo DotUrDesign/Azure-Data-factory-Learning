@@ -12,7 +12,15 @@
 					"name": "sourceCSV"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText1",
+						"type": "DatasetReference"
+					},
+					"name": "DataFlowSink"
+				}
+			],
 			"transformations": [
 				{
 					"name": "selectCols"
@@ -28,6 +36,10 @@
 				},
 				{
 					"name": "aggregate1"
+				},
+				{
+					"name": "alterRow1",
+					"description": "A condition which is always true, meaning it will pass all the records."
 				}
 			],
 			"scriptLines": [
@@ -63,7 +75,15 @@
 				"     disjoint: false) ~> split1@(visa, mastercard, amex)",
 				"split1@amex derive(payment = coalesce(payment, 'N/A')) ~> updateNULLToNA",
 				"split1@visa aggregate(groupBy(customer_id),",
-				"     product_id = max(product_id)) ~> aggregate1"
+				"     product_id = max(product_id)) ~> aggregate1",
+				"aggregate1 alterRow(insertIf(1 == 1)) ~> alterRow1",
+				"alterRow1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> DataFlowSink"
 			]
 		}
 	}
