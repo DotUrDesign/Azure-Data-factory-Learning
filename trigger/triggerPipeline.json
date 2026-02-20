@@ -1,0 +1,25 @@
+{
+	"name": "triggerPipeline",
+	"properties": {
+		"description": "Triggering the pipeline whenever someone uploads a file into the source folder",
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "pineline_manager",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/source/blobs/CsvFiles/Fact_Sales_1.csv",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/2fb2aea8-58d1-43c4-a6f0-ab421f7958ba/resourceGroups/Azure-Learning-RG/providers/Microsoft.Storage/storageAccounts/azurelearningstorageacc",
+			"events": [
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}
