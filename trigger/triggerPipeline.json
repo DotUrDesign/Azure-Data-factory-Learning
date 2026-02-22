@@ -4,14 +4,7 @@
 		"description": "Triggering the pipeline whenever someone uploads a file into the source folder",
 		"annotations": [],
 		"runtimeState": "Started",
-		"pipelines": [
-			{
-				"pipelineReference": {
-					"referenceName": "pineline_manager",
-					"type": "PipelineReference"
-				}
-			}
-		],
+		"pipelines": [],
 		"type": "BlobEventsTrigger",
 		"typeProperties": {
 			"blobPathBeginsWith": "/source/blobs/CsvFiles/Fact_Sales_1.csv",
