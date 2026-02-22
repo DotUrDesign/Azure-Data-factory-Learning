@@ -1,0 +1,125 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "azurelearningdatafac"
+		},
+		"LinkedService_DL_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'LinkedService_DL'"
+		},
+		"LinkedService_Git_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'LinkedService_Git'"
+		},
+		"LinkedserviceGit_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'LinkedserviceGit'"
+		},
+		"LinkedService_DL_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://azurelearningstorageacc.dfs.core.windows.net/"
+		},
+		"LinkedService_Git_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://github.com/DotUrDesign"
+		},
+		"LinkedService_Git_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "DotUrDesign"
+		},
+		"LinkedserviceGit_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://github.com/"
+		},
+		"LinkedserviceGit_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "DotUrDesign"
+		},
+		"triggerPipeline_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/2fb2aea8-58d1-43c4-a6f0-ab421f7958ba/resourceGroups/Azure-Learning-RG/providers/Microsoft.Storage/storageAccounts/azurelearningstorageacc"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "azurelearningdatafac_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"LinkedService_DL_accountKey": {
+						"value": "[parameters('LinkedService_DL_accountKey')]"
+					},
+					"LinkedService_Git_password": {
+						"value": "[parameters('LinkedService_Git_password')]"
+					},
+					"LinkedserviceGit_password": {
+						"value": "[parameters('LinkedserviceGit_password')]"
+					},
+					"LinkedService_DL_properties_typeProperties_url": {
+						"value": "[parameters('LinkedService_DL_properties_typeProperties_url')]"
+					},
+					"LinkedService_Git_properties_typeProperties_url": {
+						"value": "[parameters('LinkedService_Git_properties_typeProperties_url')]"
+					},
+					"LinkedService_Git_properties_typeProperties_userName": {
+						"value": "[parameters('LinkedService_Git_properties_typeProperties_userName')]"
+					},
+					"LinkedserviceGit_properties_typeProperties_url": {
+						"value": "[parameters('LinkedserviceGit_properties_typeProperties_url')]"
+					},
+					"LinkedserviceGit_properties_typeProperties_userName": {
+						"value": "[parameters('LinkedserviceGit_properties_typeProperties_userName')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "azurelearningdatafac_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"triggerPipeline_properties_typeProperties_scope": {
+						"value": "[parameters('triggerPipeline_properties_typeProperties_scope')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'azurelearningdatafac_ArmTemplate_0')]"
+			]
+		}
+	]
+}

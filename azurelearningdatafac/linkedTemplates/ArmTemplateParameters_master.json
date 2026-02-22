@@ -1,0 +1,42 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "azurelearningdatafac"
+		},
+		"LinkedService_DL_accountKey": {
+			"value": ""
+		},
+		"LinkedService_Git_password": {
+			"value": ""
+		},
+		"LinkedserviceGit_password": {
+			"value": ""
+		},
+		"LinkedService_DL_properties_typeProperties_url": {
+			"value": "https://azurelearningstorageacc.dfs.core.windows.net/"
+		},
+		"LinkedService_Git_properties_typeProperties_url": {
+			"value": "https://github.com/DotUrDesign"
+		},
+		"LinkedService_Git_properties_typeProperties_userName": {
+			"value": "DotUrDesign"
+		},
+		"LinkedserviceGit_properties_typeProperties_url": {
+			"value": "https://github.com/"
+		},
+		"LinkedserviceGit_properties_typeProperties_userName": {
+			"value": "DotUrDesign"
+		},
+		"triggerPipeline_properties_typeProperties_scope": {
+			"value": "/subscriptions/2fb2aea8-58d1-43c4-a6f0-ab421f7958ba/resourceGroups/Azure-Learning-RG/providers/Microsoft.Storage/storageAccounts/azurelearningstorageacc"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
