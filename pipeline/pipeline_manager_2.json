@@ -133,7 +133,8 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"container": "destination",
-							"folder": "CsvFiles"
+							"folder": "CsvFiles",
+							"file": "Fact_Sales_2.csv"
 						}
 					}
 				]
