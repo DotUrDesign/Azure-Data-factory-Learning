@@ -251,7 +251,11 @@
 												"type": "DatasetReference",
 												"parameters": {
 													"container": "destination",
-													"folder": "CsvFiles"
+													"folder": "CsvFiles",
+													"file": {
+														"value": "@item().name",
+														"type": "Expression"
+													}
 												}
 											}
 										],
@@ -261,7 +265,11 @@
 												"type": "DatasetReference",
 												"parameters": {
 													"container": "reporting",
-													"folder": "CsvFiles"
+													"folder": "CsvFiles",
+													"file": {
+														"value": "@item().name",
+														"type": "Expression"
+													}
 												}
 											}
 										]
