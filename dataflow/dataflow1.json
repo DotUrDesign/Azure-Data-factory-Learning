@@ -13,7 +13,17 @@
 				}
 			],
 			"sinks": [],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "selectCols"
+				},
+				{
+					"name": "filterRecords"
+				},
+				{
+					"name": "splitPayment"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
 				"          transaction_id as short,",
@@ -30,7 +40,23 @@
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> sourceCsvFiles"
+				"     ignoreNoFilesFound: false) ~> sourceCsvFiles",
+				"sourceCsvFiles select(mapColumn(",
+				"          transaction_id,",
+				"          transactional_date,",
+				"          product_id,",
+				"          customer_id,",
+				"          payment,",
+				"          loyalty_card,",
+				"          cost,",
+				"          quantity",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> selectCols",
+				"selectCols filter(customer_id != 12) ~> filterRecords",
+				"filterRecords split(payment == 'visa',",
+				"     payment == 'mastercard',",
+				"     disjoint: false) ~> splitPayment@(visa, mastercard, amex)"
 			]
 		}
 	}
