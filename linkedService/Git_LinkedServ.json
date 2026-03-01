@@ -1,0 +1,13 @@
+{
+	"name": "Git_LinkedServ",
+	"properties": {
+		"description": "Connection between Git and ADF",
+		"annotations": [],
+		"type": "HttpServer",
+		"typeProperties": {
+			"url": "https://github.com/DotUrDesign",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous"
+		}
+	}
+}
