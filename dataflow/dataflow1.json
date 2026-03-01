@@ -12,7 +12,15 @@
 					"name": "sourceCsvFiles"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "sinkDataFlow",
+						"type": "DatasetReference"
+					},
+					"name": "sinkData"
+				}
+			],
 			"transformations": [
 				{
 					"name": "selectCols"
@@ -22,6 +30,16 @@
 				},
 				{
 					"name": "splitPayment"
+				},
+				{
+					"name": "derivedColumn",
+					"description": "update the null values to N/A in case of Amex payment records "
+				},
+				{
+					"name": "aggregate"
+				},
+				{
+					"name": "alterRow"
 				}
 			],
 			"scriptLines": [
@@ -56,7 +74,18 @@
 				"selectCols filter(customer_id != 12) ~> filterRecords",
 				"filterRecords split(payment == 'visa',",
 				"     payment == 'mastercard',",
-				"     disjoint: false) ~> splitPayment@(visa, mastercard, amex)"
+				"     disjoint: false) ~> splitPayment@(visa, mastercard, amex)",
+				"splitPayment@amex derive(payment = coalesce(payment, 'N/A')) ~> derivedColumn",
+				"splitPayment@visa aggregate(groupBy(customer_id),",
+				"     product_id = max(product_id)) ~> aggregate",
+				"aggregate alterRow(insertIf(1 == 1)) ~> alterRow",
+				"alterRow sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sinkData"
 			]
 		}
 	}
