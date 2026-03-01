@@ -162,6 +162,7 @@
 					],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
 						"enablePartitionDiscovery": false
 					},
 					"formatSettings": {
@@ -212,8 +213,58 @@
 										},
 										"userProperties": [],
 										"typeProperties": {
-											"enableStaging": false
-										}
+											"source": {
+												"type": "DelimitedTextSource",
+												"storeSettings": {
+													"type": "AzureBlobFSReadSettings",
+													"recursive": true,
+													"enablePartitionDiscovery": false
+												},
+												"formatSettings": {
+													"type": "DelimitedTextReadSettings"
+												}
+											},
+											"sink": {
+												"type": "DelimitedTextSink",
+												"storeSettings": {
+													"type": "AzureBlobFSWriteSettings"
+												},
+												"formatSettings": {
+													"type": "DelimitedTextWriteSettings",
+													"quoteAllText": true,
+													"fileExtension": ".txt"
+												}
+											},
+											"enableStaging": false,
+											"translator": {
+												"type": "TabularTranslator",
+												"typeConversion": true,
+												"typeConversionSettings": {
+													"allowDataTruncation": true,
+													"treatBooleanAsNumber": false
+												}
+											}
+										},
+										"inputs": [
+											{
+												"referenceName": "reporting_src",
+												"type": "DatasetReference",
+												"parameters": {
+													"container": "destination",
+													"folder": "CsvFiles"
+												}
+											}
+										],
+										"outputs": [
+											{
+												"referenceName": "sinkDataLake",
+												"type": "DatasetReference",
+												"parameters": {
+													"container": "reporting",
+													"folder": "CsvFiles"
+												}
+											}
+										]
 									}
 								]
 							}
