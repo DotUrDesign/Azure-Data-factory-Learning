@@ -55,7 +55,10 @@
 				"outputs": [
 					{
 						"referenceName": "sink_storageacc_iq",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"folder": "github"
+						}
 					}
 				]
 			}
