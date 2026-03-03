@@ -1,0 +1,30 @@
+{
+	"name": "src_git",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Http_Git_iq",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"p_fileName": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation",
+				"relativeUrl": {
+					"value": "/Azure-Data-factory-Learning/tree/main/source_iq/@{dataset().p_fileName}",
+					"type": "Expression"
+				}
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
