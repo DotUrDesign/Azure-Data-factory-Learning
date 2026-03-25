@@ -43,7 +43,7 @@
 			},
 			{
 				"name": "Get File Names",
-				"type": "GetMetadata",
+				"type": "Lookup",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -54,8 +54,19 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
 					"dataset": {
-						"referenceName": "fileNames",
+						"referenceName": "ADF_Learning_FileNames",
 						"type": "DatasetReference",
 						"parameters": {
 							"container": "source",
@@ -63,14 +74,7 @@
 							"file": "files_array.json"
 						}
 					},
-					"fieldList": [],
-					"storeSettings": {
-						"type": "AzureBlobFSReadSettings",
-						"enablePartitionDiscovery": false
-					},
-					"formatSettings": {
-						"type": "JsonReadSettings"
-					}
+					"firstRowOnly": false
 				}
 			}
 		],
