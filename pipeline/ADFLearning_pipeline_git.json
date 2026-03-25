@@ -120,33 +120,18 @@
 									}
 								}
 							]
-						}
-					]
-				}
-			},
-			{
-				"name": "ForEach_copy1",
-				"type": "ForEach",
-				"dependsOn": [
-					{
-						"activity": "ForEach",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"items": {
-						"value": "@activity('Get File Names').output.value",
-						"type": "Expression"
-					},
-					"isSequential": true,
-					"activities": [
+						},
 						{
-							"name": "If Condition_copy1",
+							"name": "If Condition",
 							"type": "IfCondition",
-							"dependsOn": [],
+							"dependsOn": [
+								{
+									"activity": "Copy from source to Dest",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
 							"userProperties": [],
 							"typeProperties": {
 								"expression": {
