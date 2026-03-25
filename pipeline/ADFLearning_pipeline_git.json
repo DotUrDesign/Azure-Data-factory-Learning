@@ -172,7 +172,7 @@
 												"referenceName": "sourceJson_Reporting",
 												"type": "DatasetReference",
 												"parameters": {
-													"container": "bronze",
+													"container": "source",
 													"folder": "ingestion",
 													"file": {
 														"value": "@{item().file}.json",
