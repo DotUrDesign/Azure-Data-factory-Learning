@@ -1,0 +1,19 @@
+{
+	"name": "sinkJsonData",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureLearning_DataLake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "ingest",
+				"fileSystem": "dest"
+			}
+		},
+		"schema": {}
+	}
+}
