@@ -12,8 +12,33 @@
 					"name": "sourceData"
 				}
 			],
-			"sinks": [],
-			"transformations": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "sourceDataFlowJson",
+						"type": "DatasetReference"
+					},
+					"name": "sinkOutput"
+				}
+			],
+			"transformations": [
+				{
+					"name": "selectCols"
+				},
+				{
+					"name": "filterRecords"
+				},
+				{
+					"name": "splitRegions"
+				},
+				{
+					"name": "aggregate1",
+					"description": "Add aggregate columns - No of cities"
+				},
+				{
+					"name": "alterRow"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
 				"          city as string,",
@@ -24,7 +49,29 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false,",
-				"     documentForm: 'arrayOfDocuments') ~> sourceData"
+				"     documentForm: 'arrayOfDocuments') ~> sourceData",
+				"sourceData select(mapColumn(",
+				"          city,",
+				"          city_id,",
+				"          region,",
+				"          state",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> selectCols",
+				"selectCols filter(city != 'Philadelphia') ~> filterRecords",
+				"filterRecords split(region == 'West',",
+				"     region == 'South',",
+				"     disjoint: true) ~> splitRegions@(westRegion, southRegion, otherRegions)",
+				"splitRegions@westRegion aggregate(groupBy(region),",
+				"     count = count(city)) ~> aggregate1",
+				"aggregate1 alterRow(insertIf(1 == 1)) ~> alterRow",
+				"alterRow sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sinkOutput"
 			]
 		}
 	}
