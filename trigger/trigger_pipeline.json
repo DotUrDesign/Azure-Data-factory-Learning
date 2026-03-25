@@ -1,0 +1,24 @@
+{
+	"name": "trigger_pipeline",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "StorageEventTrigger_Pipeline",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/src/blobs/raw/map_cities.json",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/cec0ebeb-9f33-4421-bd68-405b68fc29c0/resourceGroups/ADFLearning/providers/Microsoft.Storage/storageAccounts/adflearningstorageaccp",
+			"events": [
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}
