@@ -2,7 +2,7 @@
 	"name": "sinkJson_Reporting",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "LinkedService_DL",
+			"referenceName": "AzureLearning_DataLake",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
