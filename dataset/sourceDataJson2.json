@@ -1,0 +1,36 @@
+{
+	"name": "sourceDataJson2",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureLearning_DataLake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "map_cities.json",
+				"folderPath": "reporting",
+				"fileSystem": "destination"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"city_id": {
+					"type": "integer"
+				},
+				"city": {
+					"type": "string"
+				},
+				"state": {
+					"type": "string"
+				},
+				"region": {
+					"type": "string"
+				}
+			}
+		}
+	}
+}
