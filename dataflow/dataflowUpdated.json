@@ -1,0 +1,31 @@
+{
+	"name": "dataflowUpdated",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ADF_Learning_sourceData",
+						"type": "DatasetReference"
+					},
+					"name": "sourceData"
+				}
+			],
+			"sinks": [],
+			"transformations": [],
+			"scriptLines": [
+				"source(output(",
+				"          city as string,",
+				"          city_id as short,",
+				"          region as string,",
+				"          state as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     documentForm: 'arrayOfDocuments') ~> sourceData"
+			]
+		}
+	}
+}
