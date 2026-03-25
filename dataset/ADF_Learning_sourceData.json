@@ -1,0 +1,20 @@
+{
+	"name": "ADF_Learning_sourceData",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureLearning_DataLake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "map_cities.json",
+				"folderPath": "reporting",
+				"fileSystem": "destination"
+			}
+		},
+		"schema": {}
+	}
+}
