@@ -32,7 +32,7 @@
 					"name": "splitRegions"
 				},
 				{
-					"name": "aggregate1",
+					"name": "aggregate",
 					"description": "Add aggregate columns - No of cities"
 				},
 				{
@@ -63,8 +63,8 @@
 				"     region == 'South',",
 				"     disjoint: true) ~> splitRegions@(westRegion, southRegion, otherRegions)",
 				"splitRegions@westRegion aggregate(groupBy(region),",
-				"     count = count(city)) ~> aggregate1",
-				"aggregate1 alterRow(insertIf(1 == 1)) ~> alterRow",
+				"     count = count(city)) ~> aggregate",
+				"aggregate alterRow(insertIf(1 == 1)) ~> alterRow",
 				"alterRow sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     umask: 0022,",
