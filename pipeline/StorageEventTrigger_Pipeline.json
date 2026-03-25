@@ -53,7 +53,14 @@
 			{
 				"name": "Delete",
 				"type": "Delete",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Copy Data Src To Dest",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
