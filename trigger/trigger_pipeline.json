@@ -13,7 +13,8 @@
 		],
 		"type": "BlobEventsTrigger",
 		"typeProperties": {
-			"blobPathBeginsWith": "/src/blobs/raw/map_cities.json",
+			"blobPathBeginsWith": "/src/blobs/raw",
+			"blobPathEndsWith": ".json",
 			"ignoreEmptyBlobs": true,
 			"scope": "/subscriptions/cec0ebeb-9f33-4421-bd68-405b68fc29c0/resourceGroups/ADFLearning/providers/Microsoft.Storage/storageAccounts/adflearningstorageaccp",
 			"events": [
