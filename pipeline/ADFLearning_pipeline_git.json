@@ -135,7 +135,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"expression": {
-									"value": "@contains(item().file, 'map')",
+									"value": "@contains(item().file, 'map_cities')",
 									"type": "Expression"
 								},
 								"ifTrueActivities": [
@@ -212,8 +212,6 @@
 			{
 				"name": "Data flow",
 				"type": "ExecuteDataFlow",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "ForEach",
@@ -232,7 +230,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataflow": {
-						"referenceName": "dataflow2",
+						"referenceName": "dataflowPractice",
 						"type": "DataFlowReference"
 					},
 					"compute": {

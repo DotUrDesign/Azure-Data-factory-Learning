@@ -10,9 +10,32 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
+				"folderPath": "reporting",
 				"fileSystem": "destination"
 			}
 		},
-		"schema": {}
+		"schema": {
+			"type": "object",
+			"properties": {
+				"cancellation_reason_id": {
+					"type": "integer"
+				},
+				"cancellation_reason": {
+					"type": "string"
+				},
+				"city_id": {
+					"type": "integer"
+				},
+				"city": {
+					"type": "string"
+				},
+				"state": {
+					"type": "string"
+				},
+				"region": {
+					"type": "string"
+				}
+			}
+		}
 	}
 }

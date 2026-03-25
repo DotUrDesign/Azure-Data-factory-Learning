@@ -1,5 +1,5 @@
 {
-	"name": "dataflow2",
+	"name": "dataflowPractice",
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {
@@ -9,16 +9,24 @@
 						"referenceName": "sourceDataJson",
 						"type": "DatasetReference"
 					},
-					"name": "source1"
+					"name": "sourceData"
 				}
 			],
 			"sinks": [],
 			"transformations": [],
 			"scriptLines": [
-				"source(allowSchemaDrift: true,",
+				"source(output(",
+				"          cancellation_reason_id as integer,",
+				"          cancellation_reason as string,",
+				"          city_id as integer,",
+				"          city as string,",
+				"          state as string,",
+				"          region as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false,",
-				"     documentForm: 'documentPerLine') ~> source1"
+				"     documentForm: 'documentPerLine') ~> sourceData"
 			]
 		}
 	}
